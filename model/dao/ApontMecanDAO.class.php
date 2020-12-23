@@ -21,7 +21,7 @@ class ApontMecanDAO extends Conn {
         $select = " SELECT "
                 . " COUNT(*) AS QTDE "
                 . " FROM "
-                . " PBM_APONTAMENTO "
+                . " PBI_APONTAMENTO "
                 . " WHERE "
                 . " DTHR_CEL_INICIAL = TO_DATE('" . $apont->dthrInicialApont . "','DD/MM/YYYY HH24:MI') "
                 . " AND "
@@ -56,7 +56,7 @@ class ApontMecanDAO extends Conn {
             $apont->paradaApont = 'NULL';
         }
 
-        $sql = "INSERT INTO PBM_APONTAMENTO ("
+        $sql = "INSERT INTO PBI_APONTAMENTO ("
                 . " BOLETIM_ID "
                 . " , OS_NRO "
                 . " , ITEM_OS "
@@ -104,7 +104,7 @@ class ApontMecanDAO extends Conn {
             $apont->paradaApont = 'NULL';
         }
 
-        $sql = "INSERT INTO PBM_APONTAMENTO ("
+        $sql = "INSERT INTO PBI_APONTAMENTO ("
                 . " BOLETIM_ID "
                 . " , OS_NRO "
                 . " , ITEM_OS "
@@ -140,7 +140,7 @@ class ApontMecanDAO extends Conn {
 
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
-        $sql = "UPDATE PBM_APONTAMENTO"
+        $sql = "UPDATE PBI_APONTAMENTO"
                 . " SET "
                 . " DTHR_FINAL = " . $ajusteDataHoraDAO->dataHoraGMT($apont->dthrFinalApont, $base)
                 . " , DTHR_CEL_FINAL = TO_DATE('" . $apont->dthrFinalApont . "','DD/MM/YYYY HH24:MI') "

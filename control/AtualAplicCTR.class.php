@@ -20,7 +20,7 @@ class AtualAplicCTR {
 
         $versao = str_replace("_", ".", $versao);
         
-        if($versao >= 2.00){
+        if($versao >= 1.00){
         
             $atualAplicDAO = new AtualAplicDAO();
 
@@ -28,7 +28,7 @@ class AtualAplicCTR {
             $dados = $jsonObj->dados;
 
             foreach ($dados as $d) {
-                $equip = $d->idEquipAtual;
+                $aparelho = $d->nroAparelhoAtual;
                 $va = $d->versaoAtual;
             }
         
@@ -39,23 +39,23 @@ class AtualAplicCTR {
             
             $retorno = "NAO=" . $retParametro;
             
-            $v = $atualAplicDAO->verAtual($equip, $this->base);
+            $v = $atualAplicDAO->verAtual($aparelho, $this->base);
             if ($v == 0) {
-                $atualAplicDAO->insAtual($equip, $va, $this->base);
+                $atualAplicDAO->insAtual($aparelho, $va, $this->base);
             } else {
-                $result = $atualAplicDAO->retAtual($equip, $this->base);
+                $result = $atualAplicDAO->retAtual($aparelho, $this->base);
                 foreach ($result as $item) {
                     $vn = $item['VERSAO_NOVA'];
                     $vab = $item['VERSAO_ATUAL'];
                 }
                 if ($va != $vab) {
-                    $atualAplicDAO->updAtualNova($equip, $va, $this->base);
+                    $atualAplicDAO->updAtualNova($aparelho, $va, $this->base);
                 } else {
                     if ($va != $vn) {
                         $retorno = 'SIM';
                     } else {
                         if (strcmp($va, $vab) <> 0) {
-                            $atualAplicDAO->updAtual($equip, $va, $this->base);
+                            $atualAplicDAO->updAtual($aparelho, $va, $this->base);
                         }
                     }
                 }

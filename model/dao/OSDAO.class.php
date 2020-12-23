@@ -25,10 +25,9 @@ class OSDAO extends Conn {
         $select = " SELECT "
                     . " OS_ID AS \"idOS\" "
                     . " , NRO AS \"nroOS\" "
-                    . " , NRO_EQUIP AS \"equipOS\" "
-                    . " , DESCR AS \"descrEquipOS\" "
+                    . " , TIPO AS \"tipoOS\" "
                 . " FROM "
-                    . " VMB_OS_AUTO "
+                    . " USINAS.VMB_OS_INDU "
                 . " WHERE "
                     . " NRO = " . $os;
 

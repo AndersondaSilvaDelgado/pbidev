@@ -6,4 +6,4 @@ require_once('../control/BaseDadosCTR.class.php');
 
 $baseDadosCTR = new BaseDadosCTR();
 
-echo $baseDadosCTR->dadosEquip($versao);
+echo $baseDadosCTR->dadosDeposito($versao);

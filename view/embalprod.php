@@ -6,4 +6,4 @@ require_once('../control/BaseDadosCTR.class.php');
 
 $baseDadosCTR = new BaseDadosCTR();
 
-echo $baseDadosCTR->dadosREquipPneu($versao);
+echo $baseDadosCTR->dadosEmbalProd($versao);

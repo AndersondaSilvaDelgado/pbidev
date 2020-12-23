@@ -6,12 +6,15 @@
  * and open the template in the editor.
  */
 require_once('../model/dao/ColabDAO.class.php');
-require_once('../model/dao/ComponenteDAO.class.php');
+require_once('../model/dao/DepProdDAO.class.php');
+require_once('../model/dao/DepositoDAO.class.php');
+require_once('../model/dao/EmbalProdDAO.class.php');
+require_once('../model/dao/EmbalagemDAO.class.php');
 require_once('../model/dao/EscalaTrabDAO.class.php');
 require_once('../model/dao/ItemOSDAO.class.php');
 require_once('../model/dao/OSDAO.class.php');
 require_once('../model/dao/ParadaDAO.class.php');
-require_once('../model/dao/ServicoDAO.class.php');
+require_once('../model/dao/ProdutoDAO.class.php');
 /**
  * Description of BaseDadosCTR
  *
@@ -19,13 +22,13 @@ require_once('../model/dao/ServicoDAO.class.php');
  */
 class BaseDadosCTR {
     
-    private $base = 1;
+    private $base = 2;
     
     public function dadosColab($versao) {
         
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
             
             $colabDAO = new ColabDAO();
         
@@ -38,15 +41,66 @@ class BaseDadosCTR {
         
     }
     
-    public function dadosComponente($versao) {
+    public function dadosDepProd($versao) {
         
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
             
-            $componenteDAO = new ComponenteDAO();
+            $depProdDAO = new DepProdDAO();
         
-            $dados = array("dados"=>$componenteDAO->dados($this->base));
+            $dados = array("dados"=>$depProdDAO->dados($this->base));
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
+        
+    }
+    
+    public function dadosDeposito($versao) {
+        
+        $versao = str_replace("_", ".", $versao);
+       
+        if($versao >= 1.00){
+            
+            $depositoDAO = new DepositoDAO();
+        
+            $dados = array("dados"=>$depositoDAO->dados($this->base));
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
+        
+    }
+    
+    public function dadosEmbalProd($versao) {
+        
+        $versao = str_replace("_", ".", $versao);
+       
+        if($versao >= 1.00){
+            
+            $embalProdDAO = new EmbalProdDAO();
+        
+            $dados = array("dados"=>$embalProdDAO->dados($this->base));
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
+        
+    }
+    
+    public function dadosEmbalagem($versao) {
+        
+        $versao = str_replace("_", ".", $versao);
+       
+        if($versao >= 1.00){
+            
+            $embalagemDAO = new EmbalagemDAO();
+        
+            $dados = array("dados"=>$embalagemDAO->dados($this->base));
             $json_str = json_encode($dados);
 
             return $json_str;
@@ -59,7 +113,7 @@ class BaseDadosCTR {
         
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
             
             $escalaTrabDAO = new EscalaTrabDAO();
         
@@ -76,7 +130,7 @@ class BaseDadosCTR {
 
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
         
             $osDAO = new OSDAO();
             $itemOSDAO = new ItemOSDAO();
@@ -99,7 +153,7 @@ class BaseDadosCTR {
         
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
             
             $paradaDAO = new ParadaDAO();
         
@@ -112,15 +166,15 @@ class BaseDadosCTR {
         
     }
     
-    public function dadosServico($versao) {
+    public function dadosProduto($versao) {
         
         $versao = str_replace("_", ".", $versao);
        
-        if($versao >= 2.00){
+        if($versao >= 1.00){
+            
+            $produtoDAO = new ProdutoDAO();
         
-            $servicoDAO = new ServicoDAO();
-
-            $dados = array("dados"=>$servicoDAO->dados($this->base));
+            $dados = array("dados"=>$produtoDAO->dados($this->base));
             $json_str = json_encode($dados);
 
             return $json_str;
@@ -128,5 +182,6 @@ class BaseDadosCTR {
         }
         
     }
+    
     
 }

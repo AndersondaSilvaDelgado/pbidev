@@ -16,13 +16,12 @@ require_once ('../model/dao/AjusteDataHoraDAO.class.php');
 class BoletimMecanDAO extends Conn {
 
     //put your code here
-
     public function verifBol($bol, $base) {
 
         $select = " SELECT "
                 . " COUNT(*) AS QTDE "
                 . " FROM "
-                . " PBM_BOLETIM "
+                . " PBI_BOLETIM "
                 . " WHERE "
                 . " DTHR_CEL_INICIAL = TO_DATE('" . $bol->dthrInicialBoletim . "','DD/MM/YYYY HH24:MI') "
                 . " AND "
@@ -46,7 +45,7 @@ class BoletimMecanDAO extends Conn {
         $select = " SELECT "
                 . " ID AS ID "
                 . " FROM "
-                . " PBM_BOLETIM "
+                . " PBI_BOLETIM "
                 . " WHERE "
                 . " DTHR_CEL_INICIAL = TO_DATE('" . $bol->dthrInicialBoletim . "','DD/MM/YYYY HH24:MI') "
                 . " AND "
@@ -69,9 +68,9 @@ class BoletimMecanDAO extends Conn {
 
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
-        $sql = "INSERT INTO PBM_BOLETIM ("
+        $sql = "INSERT INTO PBI_BOLETIM ("
                 . " FUNC_ID "
-                . " , EQUIP_ID "
+                . " , NRO_APARELHO "
                 . " , DTHR_INICIAL "
                 . " , DTHR_CEL_INICIAL "
                 . " , DTHR_TRANS_INICIAL "
@@ -79,7 +78,7 @@ class BoletimMecanDAO extends Conn {
                 . " ) "
                 . " VALUES ("
                 . " " . $bol->idFuncBoletim
-                . " , " . $bol->equipBoletim
+                . " , " . $bol->nroAparelhoBoletim
                 . " , " . $ajusteDataHoraDAO->dataHoraGMT($bol->dthrInicialBoletim, $base)
                 . " , TO_DATE('" . $bol->dthrInicialBoletim . "','DD/MM/YYYY HH24:MI') "
                 . " , SYSDATE "
@@ -95,9 +94,9 @@ class BoletimMecanDAO extends Conn {
 
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
-        $sql = "INSERT INTO PBM_BOLETIM ("
+        $sql = "INSERT INTO PBI_BOLETIM ("
                 . " FUNC_ID "
-                . " , EQUIP_ID "
+                . " , NRO_APARELHO "
                 . " , DTHR_INICIAL "
                 . " , DTHR_CEL_INICIAL "
                 . " , DTHR_TRANS_INICIAL "
@@ -109,7 +108,7 @@ class BoletimMecanDAO extends Conn {
                 . " ) "
                 . " VALUES ("
                 . " " . $bol->idFuncBoletim
-                . " , " . $bol->equipBoletim
+                . " , " . $bol->nroAparelhoBoletim
                 . " , " . $ajusteDataHoraDAO->dataHoraGMT($bol->dthrInicialBoletim, $base)
                 . " , TO_DATE('" . $bol->dthrInicialBoletim . "','DD/MM/YYYY HH24:MI') "
                 . " , SYSDATE "
@@ -129,7 +128,7 @@ class BoletimMecanDAO extends Conn {
 
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
-        $sql = "UPDATE PBM_BOLETIM "
+        $sql = "UPDATE PBI_BOLETIM "
                 . " SET "
                 . " STATUS = " . $bol->statusBoletim
                 . " , DTHR_FINAL = " . $ajusteDataHoraDAO->dataHoraGMT($bol->dthrFinalBoletim, $base)

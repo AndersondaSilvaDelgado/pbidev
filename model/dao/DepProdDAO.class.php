@@ -7,12 +7,13 @@
  */
 require_once ('../dbutil/Conn.class.php');
 /**
- * Description of ComponenteDAO
+ * Description of LocalProdDAO
  *
  * @author anderson
  */
-class ComponenteDAO extends Conn {
-
+class DepProdDAO extends Conn {
+    //put your code here
+    
     /** @var PDOStatement */
     private $Read;
 
@@ -22,13 +23,13 @@ class ComponenteDAO extends Conn {
     public function dados($base) {
 
         $select = " SELECT "
-                . " COMPONENTE_ID AS \"idComponente\" "
-                . " , CD AS \"codComponente\" "
-                . " , DESCR AS \"descrComponente\" "
+                    . " LOCALPAD_ID AS \"idLocalProd\" "
+                    . " , DEPPROD_ID AS \"idLocal\" "
+                    . " , EMBPROD_ID AS \"idEmbProd\" "
                 . " FROM "
-                . " VMB_COMPONENTE_AUTO "
+                    . " USINAS.VMB_PROD_DEP_INDU "
                 . " ORDER BY "
-                . " CD "
+                    . " NOME "
                 . " ASC ";
 
         $this->Conn = parent::getConn($base);
@@ -38,6 +39,7 @@ class ComponenteDAO extends Conn {
         $result = $this->Read->fetchAll();
 
         return $result;
+        
     }
-
+    
 }

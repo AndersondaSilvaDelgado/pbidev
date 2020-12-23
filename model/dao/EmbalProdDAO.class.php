@@ -7,13 +7,14 @@
  */
 require_once ('../dbutil/Conn.class.php');
 /**
- * Description of ServicoDAO
+ * Description of EmbalProdDAO
  *
  * @author anderson
  */
-class ServicoDAO extends Conn {
-
-    /** @var PDOStatement */
+class EmbalProdDAO extends Conn {
+    //put your code here
+    
+/** @var PDOStatement */
     private $Read;
 
     /** @var PDO */
@@ -22,14 +23,11 @@ class ServicoDAO extends Conn {
     public function dados($base) {
 
         $select = " SELECT "
-                . " SERVICO_ID AS \"idServico\" "
-                . " , CD AS \"codServico\" "
-                . " , DESCR AS \"descrServico\" "
+                    . " EMBPROD_ID AS \"idEmbalProd\" "
+                    . " , EMBAL_ID AS \"idEmbal\" "
+                    . " , DADOSPROD_ID AS \"idProd\" "
                 . " FROM "
-                . " VMB_SERVICO_AUTO "
-                . " ORDER BY "
-                . " CD "
-                . " ASC ";
+                    . " USINAS.VMB_PROD_INDU ";
 
         $this->Conn = parent::getConn($base);
         $this->Read = $this->Conn->prepare($select);
@@ -38,6 +36,7 @@ class ServicoDAO extends Conn {
         $result = $this->Read->fetchAll();
 
         return $result;
+        
     }
-
+    
 }

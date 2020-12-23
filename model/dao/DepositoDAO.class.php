@@ -7,33 +7,29 @@
  */
 require_once ('../dbutil/Conn.class.php');
 /**
- * Description of ItemOSDAO
+ * Description of LocalDAO
  *
  * @author anderson
  */
-class ItemOSDAO extends Conn {
+class DepositoDAO extends Conn {
     //put your code here
-
+    
     /** @var PDOStatement */
     private $Read;
 
     /** @var PDO */
     private $Conn;
 
-    public function dados($os, $base) {
+    public function dados($base) {
 
         $select = " SELECT "
-                    . " I.ITOSMECAN_ID AS \"idItemOS\" "
-                    . " , I.OS_ID AS \"idOS\" "
-                    . " , I.ITEM_OS AS \"seqItemOS\" "
-                    . " , I.OFICSECAO_ID AS \"idOficSecaoItemOS\" "
+                    . " DEPPROD_ID AS \"idDeposito\" "
+                    . " , CARACTER(NOME) AS \"descrDeposito\" "
                 . " FROM "
-                    . " USINAS.VMB_ITEM_OS_INDU I "
-                    . " , USINAS.VMB_OS_INDU OS "
-                . " WHERE "
-                    . " OS.NRO = " . $os
-                    . " AND "
-                    . " I.OS_ID = OS.OS_ID ";
+                    . " USINAS.DEP_PROD "
+                . " ORDER BY "
+                    . " NOME "
+                . " ASC ";
 
         $this->Conn = parent::getConn($base);
         $this->Read = $this->Conn->prepare($select);
@@ -42,6 +38,7 @@ class ItemOSDAO extends Conn {
         $result = $this->Read->fetchAll();
 
         return $result;
+        
     }
-
+    
 }
