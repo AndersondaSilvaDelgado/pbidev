@@ -5,7 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/dao/ReqProdutoDAO.class.php');
+require_once('../model/dao/LogDAO.class.php');
+require_once('../model/dao/CabecReqProdDAO.class.php');
+require_once('../model/dao/ItemReqProdDAO.class.php');
 /**
  * Description of ReqProduto
  *
@@ -21,22 +23,56 @@ class ReqProdutoCTR {
         $dados = $info['dado'];
         $this->salvarLog($dados, $pagina);
 
-        $jsonObjReqProduto = json_decode($dados);
+        $pos1 = strpos($dados, "_") + 1;
 
-        $dadosReqProduto = $jsonObjReqProduto->reqproduto;
+        $cabec = substr($dados, 0, ($pos1 - 1));
+        $item = substr($dados, $pos1);
 
-        $reqProdutoDAO = new ReqProdutoDAO();
-        $idReqProdArray = array();
-        foreach ($dadosReqProduto as $req) {
-            $v = $reqProdutoDAO->verifReqProd($req, $this->base);
+        $jsonObjCabec = json_decode($cabec);
+        $jsonObjItem = json_decode($item);
+
+        $dadosCabec = $jsonObjCabec->cabec;
+        $dadosItem = $jsonObjItem->item;
+
+        $cabecReqProdDAO = new CabecReqProdDAO();
+        $idCabecArray = array();
+        foreach ($dadosCabec as $cabec) {
+            $v = $cabecReqProdDAO->verifCabec($cabec, $this->base);
             if ($v == 0) {
-                $reqProdutoDAO->insReqProd($req, $this->base);
+                $cabecReqProdDAO->insCabec($cabec, $this->base);
             }
-            $idReqProdArray[] = array("idReqProduto" => $req->idReqProduto);
+            $idCabec = $cabecReqProdDAO->idCabec($cabec, $this->base);
+            $this->salvarItem($idCabec, $cabec->idCabecReqProd, $dadosItem);
+            $idCabecArray[] = array("idCabecReqProd" => $cabec->idCabecReqProd);
         }
-        $dadoReqProd = array("reqproduto"=>$idReqProdArray);
-        $retReq = json_encode($dadoReqProd);
-        return "REQPRODUTO#" . $retReq;
+        $dadoCabec = array("cabec"=>$idCabecArray);
+        $retCabec = json_encode($dadoCabec);
+        return "REQPRODUTO#" . $retCabec . "_";
+        
+    }
+    
+    private function salvarItem($idCabecBD, $idCabecCel, $dadosItem) {
+        
+        $itemReqProdDAO = new ItemReqProdDAO();
+        $idItemArray = array();
+        foreach ($dadosItem as $item) {
+            if ($idCabecCel == $item->idCabecItemReqProd) {
+                $v = $itemReqProdDAO->verifItem($idCabecBD, $item, $this->base);
+                if ($v == 0) {
+                    $itemReqProdDAO->insItem($idCabecBD, $item, $this->base);
+                }
+                $idItemArray[] = array("idItemReqProd"=>$item->idItemReqProd, "idCabecItemReqProd"=>$idCabecCel);
+            }
+        }
+        $dadoItem = array("item"=>$idItemArray);
+        $retItem = json_encode($dadoItem);
+        return $retItem;
+        
+    }
+    
+    private function salvarLog($dados, $pagina) {
+        $logDAO = new LogDAO();
+        $logDAO->salvarDados($dados, $pagina, $this->base);
     }
     
 }

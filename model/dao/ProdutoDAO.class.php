@@ -33,9 +33,9 @@ class ProdutoDAO extends Conn {
 //                . " ASC ";
         
         $select = " SELECT "
-                    . " DADOSPROD_ID "
-                    . " , CD "
-                    . " , CARACTER(DESCR) "
+                    . " DADOSPROD_ID AS \"idProduto\" "
+                    . " , CD AS \"codProduto\" "
+                    . " , CARACTER(DESCR) AS \"descrProduto\" "
                 . " FROM "
                     . " USINAS.VMB_PROD_INDU "
                 . " GROUP BY "

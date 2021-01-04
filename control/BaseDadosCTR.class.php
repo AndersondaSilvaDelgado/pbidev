@@ -6,8 +6,8 @@
  * and open the template in the editor.
  */
 require_once('../model/dao/ColabDAO.class.php');
-require_once('../model/dao/DepProdDAO.class.php');
-require_once('../model/dao/DepositoDAO.class.php');
+require_once('../model/dao/LocalProdDAO.class.php');
+require_once('../model/dao/LocalDAO.class.php');
 require_once('../model/dao/EmbalProdDAO.class.php');
 require_once('../model/dao/EmbalagemDAO.class.php');
 require_once('../model/dao/EscalaTrabDAO.class.php');
@@ -41,15 +41,15 @@ class BaseDadosCTR {
         
     }
     
-    public function dadosDepProd($versao) {
+    public function dadosLocalProd($versao) {
         
         $versao = str_replace("_", ".", $versao);
        
         if($versao >= 1.00){
             
-            $depProdDAO = new DepProdDAO();
+            $localProdDAO = new LocalProdDAO();
         
-            $dados = array("dados"=>$depProdDAO->dados($this->base));
+            $dados = array("dados"=>$localProdDAO->dados($this->base));
             $json_str = json_encode($dados);
 
             return $json_str;
@@ -58,15 +58,15 @@ class BaseDadosCTR {
         
     }
     
-    public function dadosDeposito($versao) {
+    public function dadosLocal($versao) {
         
         $versao = str_replace("_", ".", $versao);
        
         if($versao >= 1.00){
             
-            $depositoDAO = new DepositoDAO();
+            $localDAO = new LocalDAO();
         
-            $dados = array("dados"=>$depositoDAO->dados($this->base));
+            $dados = array("dados"=>$localDAO->dados($this->base));
             $json_str = json_encode($dados);
 
             return $json_str;

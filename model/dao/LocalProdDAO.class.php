@@ -7,11 +7,11 @@
  */
 require_once ('../dbutil/Conn.class.php');
 /**
- * Description of LocalDAO
+ * Description of LocalProdDAO
  *
  * @author anderson
  */
-class DepositoDAO extends Conn {
+class LocalProdDAO extends Conn {
     //put your code here
     
     /** @var PDOStatement */
@@ -23,10 +23,11 @@ class DepositoDAO extends Conn {
     public function dados($base) {
 
         $select = " SELECT "
-                    . " DEPPROD_ID AS \"idDeposito\" "
-                    . " , CARACTER(NOME) AS \"descrDeposito\" "
+                    . " LOCALPAD_ID AS \"idLocalProd\" "
+                    . " , DEPPROD_ID AS \"idLocal\" "
+                    . " , EMBPROD_ID AS \"idEmbProd\" "
                 . " FROM "
-                    . " USINAS.DEP_PROD "
+                    . " USINAS.VMB_PROD_DEP_INDU "
                 . " ORDER BY "
                     . " NOME "
                 . " ASC ";
